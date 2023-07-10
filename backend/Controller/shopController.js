@@ -2,24 +2,26 @@ const Shop = require("../Model/shopModel");
 
 const addShop = async (req, res) => {
   try {
-    const { userId, shopName, shopType, images, status } = req.body;
+    const { user, shopName, shopType, images, shopStatus } = req.body;
 
-    if (!userId | !shopName || !shopType || !status) {
+    console.log(req.query);
+    
+    if (!user | !shopName || !shopType || !shopStatus) {
       return res.status(400).send({ error: "All fields are required" });
     }
 
-    const shopExists = await Shop.find({ shopName });
+    const shopExists = await Shop.findOne({ shopName });
 
     if (shopExists) {
       return res.status(400).send({ error: "Shop Already Exists" });
     }
 
     const createShop = await Shop.create({
-      user: userId,
-      shopName: shopName,
-      shopType: shopType,
-      images: images,
-      shop_status: status,
+      user,
+      shopName,
+      shopType,
+      images,
+      shopStatus,
     });
 
     if (createShop) {
@@ -64,7 +66,7 @@ const updateShop = async (req, res) => {
         shopName: shopName,
         shopType: shopType,
         images: images,
-        shop_status: status,
+        shopStatus: status,
       },
       {
         new: true,

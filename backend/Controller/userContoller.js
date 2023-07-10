@@ -1,5 +1,6 @@
 const User = require("../Model/userModel");
 const generateToken = require("./generateToken");
+const bcrypt = require("bcryptjs");
 
 const registerUser = async (req, res) => {
   try {
@@ -72,14 +73,11 @@ const registerUser = async (req, res) => {
 
 const userLogin = async (req, res) => {
   try {
-    const { email, phone, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await User.findOne({ email, phone }).populate(
-      "user",
-      "-password"
-    );
+    const user = await User.findOne({ email });
 
-    if (login && (await User.matchPassword(password))) {
+    if (user && (await user.matchPassword(password))) {
       return res.status(200).send({
         _id: user._id,
         firstname: user.firstname,
@@ -92,15 +90,18 @@ const userLogin = async (req, res) => {
         verify: user.verify,
         token: generateToken(user._id),
       });
+    } else {
+      return res.status(401).send({ error: "Invalid email or password" });
     }
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(400).send({ error: "An error occurred during login" });
   }
 };
 
+
 const alluser = async (req, res) => {
   try {
-    const users = await User.find().populate("user", "-password");
+    const users = await User.find();
 
     if (users) {
       return res.status(200).send(users);
@@ -119,35 +120,40 @@ const updateUser = async (req, res) => {
       gender,
       contact,
       email,
+      password,
       dateOfBirth,
       address,
-      password,
       verify,
     } = req.body;
 
-    const update = await User.findByIdAndUpdate(
-      userId,
-      {
-        firstname,
-        lastname,
-        gender,
-        contact,
-        email,
-        dateOfBirth,
-        address,
-        password,
-        verify,
-      },
-      {
-        new: true,
-      }
-    );
+    let updatedFields = {
+      firstname,
+      lastname,
+      gender,
+      contact,
+      email,
+      dateOfBirth,
+      address,
+      verify,
+    };
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updatedFields.password = hashedPassword;
+    }
+
+    const update = await User.findByIdAndUpdate(userId, updatedFields, {
+      new: true,
+    });
     if (update) {
-      res.status(200).send(update);
+      return res.status(200).send(update);
+    } else {
+      return res.status(400).send({ error: "Unable to find user to update" });
     }
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(400).send({ error: "Unable to update user" });
   }
 };
 
-module.exports = { registerUser, userLogin, alluser };
+module.exports = { registerUser, userLogin, alluser, updateUser };
