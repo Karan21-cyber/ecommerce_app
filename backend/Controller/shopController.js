@@ -1,12 +1,15 @@
 const Shop = require("../Model/shopModel");
+const fs = require("fs");
+const path = require("path");
+const directoryPath = path.join(__dirname,"../../frontend/uploads/shops/");
 
 const addShop = async (req, res) => {
   try {
-    const { user, shopName, shopType, images, shopStatus } = req.body;
+    const { user, shopName, shopType, shopStatus } = req.body;
+    const image = req.file;
+    console.log(req.file);
 
-    console.log(req.query);
-    
-    if (!user | !shopName || !shopType || !shopStatus) {
+    if (!user || !shopName || !shopType || !shopStatus || !image) {
       return res.status(400).send({ error: "All fields are required" });
     }
 
@@ -20,60 +23,61 @@ const addShop = async (req, res) => {
       user,
       shopName,
       shopType,
-      images,
+      images: image.filename,
       shopStatus,
     });
 
     if (createShop) {
-      res.status(201).send(createShop);
+      return res.status(201).send(createShop);
+    }
+  } catch (error) {
+    return res
+      .status(400)
+      .send({ error: "An error occurred while adding the shop" });
+  }
+};
+
+const fetchShop = async (req, res) => {
+  try {
+    const getShop = await Shop.find();
+    if (getShop) {
+      res.status(200).send(getShop);
     }
   } catch (error) {
     return res.status(400).send(error);
   }
 };
 
-const fetchShop = async(req, res) => {
-    try{
-        const getShop = await Shop.find();
-        if(getShop){
-            res.status(200).send(getShop);
-        }
-    }catch(error){
-        return res.status(400).send(error);
+const singleShop = async (req, res) => {
+  try {
+    const shopId = req.params.id;
+    const shop = await Shop.findOne({ _id: shopId });
+
+    if (shop) {
+      res.status(200).send(shop);
     }
-}
-
-const singleShop = async(req, res) => {
-     try {
-       const shopId = req.params.id;
-       const shop = await Shop.findOne({ _id: shopId });
-
-       if (shop) {
-         res.status(200).send(shop);
-       }
-     } catch (error) {
-       return res.status(400).send(error);
-     }
-}
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+};
 
 const updateShop = async (req, res) => {
   try {
-    const { shopId, shopName, shopType, images, status } = req.body;
+    const { shopId, shopName, shopType, shopStatus } = req.body;
 
     const update = await Shop.findByIdAndUpdate(
       shopId,
       {
-        shopName: shopName,
-        shopType: shopType,
-        images: images,
-        shopStatus: status,
+        shopName,
+        shopType,
+        shopStatus,
       },
       {
         new: true,
       }
     );
 
-    if (createShop) {
+    if (update) {
       res.status(201).send(update);
     }
   } catch (error) {
@@ -84,6 +88,15 @@ const updateShop = async (req, res) => {
 const removeShop = async (req, res) => {
   try {
     const shopId = req.params.id;
+
+    const shop = await Shop.findOne({ _id: shopId });
+
+    const removeImage = fs.unlink(directoryPath + shop.images, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+
     const remove = await Shop.deleteOne({ _id: shopId });
 
     if (remove) {
@@ -94,4 +107,4 @@ const removeShop = async (req, res) => {
   }
 };
 
-module.exports = { addShop , fetchShop, singleShop, updateShop, removeShop };
+module.exports = { addShop, fetchShop, singleShop, updateShop, removeShop };

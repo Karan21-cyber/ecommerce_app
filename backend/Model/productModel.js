@@ -7,11 +7,10 @@ const productSchema = new mongoose.Schema({
   discount: { type: Number },
   offer: { type: Number },
   description: { type: String },
-  quantity: { type: String },
+  quantity: { type: Number},
   productPrice: { type: Number },
   images: { type: Array },
   productStatus: { type: String },
-  colors: { type: Array },
   type: { type: String },
   mall: { type: Boolean },
 });

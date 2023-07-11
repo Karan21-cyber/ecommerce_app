@@ -1,4 +1,8 @@
 const Product = require("../Model/productModel");
+const fs = require("fs");
+const path = require("path");
+const directoryPath = path.join(__dirname, "../../frontend/uploads/products/");
+
 
 // type is for male female , kids, baby, and many more
 const addProduct = async (req, res) => {
@@ -12,18 +16,20 @@ const addProduct = async (req, res) => {
       description,
       quantity,
       productPrice,
-      images,
       productStatus,
-      colors,
       type,
       mall,
     } = req.body;
+    
+    const images = req.files.map((file) => file.filename);
+    
+    console.log(images);
 
     if (
       !productName ||
       !category ||
       !shop ||
-      quantity ||
+      !quantity ||
       !productPrice ||
       !productStatus ||
       !images ||
@@ -49,7 +55,6 @@ const addProduct = async (req, res) => {
       productPrice,
       images,
       productStatus,
-      colors,
       type,
       mall,
     });
@@ -101,10 +106,9 @@ const updateProduct = async (req, res) => {
       description,
       quantity,
       productPrice,
-      images,
       productStatus,
-      colors,
       mall,
+      type,
     } = req.body;
 
     const product = await Product.findByIdAndUpdate(
@@ -117,10 +121,9 @@ const updateProduct = async (req, res) => {
         description,
         quantity,
         productPrice,
-        images,
         productStatus,
-        colors,
         mall,
+        type,
       },
       {
         new: true,
@@ -138,10 +141,18 @@ const removeProduct = async(req, res) => {
     try {
       const productId = req.params.id;
 
-      const product = await Product.deleteOne({ _id: productId });
+      const product = await Product.findOne({_id:productId});
+      
+      const deleteImage = product.images.map((imageName) => fs.unlink(directoryPath + imageName,(err) =>{
+        if(err){
+          throw err;
+        }
+      }));
+      
+      const deleteProduct = await Product.deleteOne({ _id: productId });
 
-      if (product) {
-        res.status(200).send(product);
+      if (deleteProduct) {
+        res.status(200).send(deleteProduct);
       }
     } catch (error) {
       return res.status(400).send(error);

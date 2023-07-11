@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const path = require("path");
 const {
   addShop,
   fetchShop,
@@ -9,10 +10,10 @@ const {
 } = require("../Controller/shopController");
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "../../frontend");
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../../frontend/uploads/shops/"));
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
@@ -21,10 +22,10 @@ const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-router.get("/", fetchShop);
-router.post("/addShop", upload.single("file"), addShop); // Corrected: Use router.post instead of router.route and specify upload.single("file") to handle a single file upload
-router.get("/singleShop/:id", singleShop);
-router.put("/update", updateShop);
-router.delete("/remove/:id", removeShop);
+router.route("/").get(fetchShop);
+router.route("/addShop").post(upload.single("image"), addShop);
+router.route("/singleShop/:id").get(singleShop);
+router.route("/update").put(updateShop);
+router.route("/remove/:id").delete(removeShop);
 
 module.exports = router;
