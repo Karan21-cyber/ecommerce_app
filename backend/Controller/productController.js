@@ -159,4 +159,18 @@ const removeProduct = async(req, res) => {
     }
 }
 
-module.exports = { addProduct, fetchAll, singleProduct,removeProduct,updateProduct};
+const searchProduct = async(req, res) => {
+  try{
+    const search = req.query.q;
+
+    const product = await Product.find({
+      productName : {$regex : search , $options : "si"}
+    });
+    res.send(product);
+  }
+  catch(error){
+    return res.status(400).send(error);
+  }
+}
+
+module.exports = { addProduct, fetchAll, singleProduct,removeProduct,updateProduct,searchProduct};
