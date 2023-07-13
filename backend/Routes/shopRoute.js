@@ -7,6 +7,7 @@ const {
   singleShop,
   updateShop,
   removeShop,
+  searchShop,
 } = require("../Controller/shopController");
 
 const storage = multer.diskStorage({
@@ -27,5 +28,6 @@ router.route("/addShop").post(upload.single("image"), addShop);
 router.route("/singleShop/:id").get(singleShop);
 router.route("/update").put(updateShop);
 router.route("/remove/:id").delete(removeShop);
+router.route("/search").get(searchShop);
 
 module.exports = router;

@@ -107,4 +107,18 @@ const removeShop = async (req, res) => {
   }
 };
 
-module.exports = { addShop, fetchShop, singleShop, updateShop, removeShop };
+const searchShop = async(req, res) => {
+  try{
+    const search = req.query.q;
+    const shop = await Shop.find({shopName : { $regex : search , $options: "si" }})
+
+    if(shop){
+      res.status(200).send(shop);
+    }
+
+  }catch(error){
+    res.status(400).send(error);
+  }
+}
+
+module.exports = { addShop, fetchShop, singleShop, updateShop, removeShop ,searchShop};
