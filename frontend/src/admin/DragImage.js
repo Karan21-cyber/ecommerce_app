@@ -77,7 +77,6 @@ function DragImage() {
           <span className="select">Drop images here</span>
         ) : (
           <>
-            {" "}
             Drag & Drop image here or
             <span className="select" role="button" onClick={selectFiles}>
               Browse

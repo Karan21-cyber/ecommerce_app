@@ -5,6 +5,7 @@ const shopSchema = new mongoose.Schema({
     shopName:{type:String},
     shopType:{type:String},
     images:{type:String},
+    shopDescription:{type:String},
     shopStatus:{type:String},
 })
 

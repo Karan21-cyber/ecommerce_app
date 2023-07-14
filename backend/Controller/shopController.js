@@ -5,7 +5,7 @@ const directoryPath = path.join(__dirname,"../../frontend/uploads/shops/");
 
 const addShop = async (req, res) => {
   try {
-    const { user, shopName, shopType, shopStatus } = req.body;
+    const { user, shopName, shopType, shopStatus,shopDescription } = req.body;
     const image = req.file;
     console.log(req.file);
 
@@ -24,6 +24,7 @@ const addShop = async (req, res) => {
       shopName,
       shopType,
       images: image.filename,
+      shopDescription,
       shopStatus,
     });
 
@@ -63,7 +64,7 @@ const singleShop = async (req, res) => {
 
 const updateShop = async (req, res) => {
   try {
-    const { shopId, shopName, shopType, shopStatus } = req.body;
+    const { shopId, shopName, shopType, shopStatus,shopDescription } = req.body;
 
     const update = await Shop.findByIdAndUpdate(
       shopId,
@@ -71,6 +72,7 @@ const updateShop = async (req, res) => {
         shopName,
         shopType,
         shopStatus,
+        shopDescription
       },
       {
         new: true,
