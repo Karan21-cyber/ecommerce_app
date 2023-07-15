@@ -23,3 +23,4 @@ export {default as InventoryIcon} from '@mui/icons-material/Inventory'; //order
 export {default as AssessmentIcon} from '@mui/icons-material/Assessment'; //history of order
 export { default as AddBusinessIcon} from '@mui/icons-material/AddBusiness';
 export {default as QueuePlayNextIcon} from "@mui/icons-material/QueuePlayNext";
+export { default as SearchIcon } from "@mui/icons-material/Search";

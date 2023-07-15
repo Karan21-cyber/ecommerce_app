@@ -66,7 +66,7 @@ function AddProduct() {
       <h1 className="text-2xl fixed z-10 ml-12 font-semibold ">
         Add New Product
       </h1>
-      <div className="h-[84vh] flex flex-col gap-2  overflow-y-scroll mb-5 m-2 mt-12 md:mt-14 md:m-8 scroll-hidden no-scrollbar ">
+      <div className="h-[84vh] flex flex-col gap-2  overflow-y-scroll mb-5 m-2 mt-12 md:mt-14 md:m-8 no-scrollbar ">
         <div className="border border-slate-400 rounded-lg  p-5">
           <h2 className="text-xl font-medium">Product Images</h2>
           {/* drag and drop images container */}
