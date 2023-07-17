@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from './Navbar'
+import ImageSlider from "./ImageSlider";
 
 function HomePage() {
   return (
-    <div>
-     HomePage
+    <div className='w-screen h-[90vh] relative top-11 md:top-20 '>
+     <ImageSlider />
     </div>
   )
 }

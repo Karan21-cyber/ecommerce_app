@@ -13,7 +13,7 @@ export {default as VisibilityIcon} from "@mui/icons-material/Visibility";
 export {default as ReviewsIcon} from '@mui/icons-material/Reviews'; //review
 export {default as FacebookIcon} from '@mui/icons-material/Facebook';
 export {default as  InstagramIcon} from '@mui/icons-material/Instagram';
-export {default as FavoriteIcon} from "@mui/icons-material/Favorite";
+export {default as FavoriteIcon} from "@mui/icons-material/FavoriteBorder";
 export {default as StarIcon} from '@mui/icons-material/Star';
 export {default as StarHalfIcon} from "@mui/icons-material/StarHalf";
 export {default as GoogleIcon} from '@mui/icons-material/Google';
@@ -24,3 +24,4 @@ export {default as AssessmentIcon} from '@mui/icons-material/Assessment'; //hist
 export { default as AddBusinessIcon} from '@mui/icons-material/AddBusiness';
 export {default as QueuePlayNextIcon} from "@mui/icons-material/QueuePlayNext";
 export { default as SearchIcon } from "@mui/icons-material/Search";
+export {default as UserIcon} from "@mui/icons-material/PersonOutline";

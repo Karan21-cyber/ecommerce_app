@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-function Login() {
+function Login({ handleClose, handleShowSignup }) {
   return (
-    <div className=" h-screen w-screen overflow-hidden">
-      <div className=" m-2 h-[98vh]  grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden">
-        <div className="w-12/12 h-[98vh] hidden md:hidden lg:block">
+    <div className=" h-full w-full overflow-hidden ">
+      <div className=" m-2 w-12/12 h-full  grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden">
+        <div className=" hidden md:hidden lg:block">
           <img
             src={require("../assets/image1.jpg")}
             className=" w-full h-full object-cover"
@@ -13,7 +12,13 @@ function Login() {
           />
         </div>
 
-        <div className="w-12/12 h-[98vh] bg-slate-50 overflow-y-scroll pt-3 px-3 no-scrollbar pb-10 flex flex-col justify-center ">
+        <div className="relative w-full h-[86vh] bg-slate-50 overflow-y-scroll py-3 px-3 no-scrollbar flex flex-col justify-center ">
+          <span
+            className="absolute -top-1 right-2 text-4xl cursor cursor-pointer ease-linear duration-300 text-gray-400 animate-bounce hover:animate-none hover:text-gray-600"
+            onClick={handleClose}
+          >
+            &times;
+          </span>
           <header className="text-2xl  font-bold">Log In </header>
           <div className="flex mt-5 flex-col gap-2">
             <label className="font-sm font-normal">Email</label>
@@ -21,7 +26,7 @@ function Login() {
               type="email"
               required
               placeholder="Enter Email"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
 
@@ -30,10 +35,10 @@ function Login() {
             <input
               type="password"
               placeholder="Enter password"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
-         
+
           <div className="flex mt-5 gap-2">
             <input type="checkbox" />
             <label className="font-sm font-normal text-gray-400 ">
@@ -46,9 +51,12 @@ function Login() {
           </button>
           <h2>
             Didn't Have an Account{" "}
-            <Link className="text-gray-400 underline hover:text-blue-500">
+            <span
+              className="text-gray-400 underline hover:text-blue-500 cursor-pointer"
+              onClick={handleShowSignup}
+            >
               Register
-            </Link>
+            </span>
             .
           </h2>
         </div>

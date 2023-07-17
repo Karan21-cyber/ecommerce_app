@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Signup() {
+function Signup({ handleShowLogin, handleClose }) {
   return (
-    <div className=" h-screen w-screen overflow-hidden">
-      <div className=" m-2 h-[98vh]  grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden">
-        <div className="w-12/12 h-[98vh] hidden md:hidden lg:block">
+    <div className="h-full w-full overflow-hidden">
+      <div className=" m-2 w-12/12 h-full  grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden">
+        <div className=" hidden md:hidden lg:block">
           <img
             src={require("../assets/image1.jpg")}
             className=" w-full h-full object-cover"
@@ -13,15 +13,23 @@ function Signup() {
           />
         </div>
 
-        <div className="w-12/12 h-[98vh] bg-slate-50 overflow-y-scroll pt-3 px-3 no-scrollbar pb-10">
-          <header className="text-2xl font-bold">Create Customer Account</header>
+        <div className=" relative w-full h-[86vh] bg-slate-200 px-3 py-4 overflow-y-scroll no-scrollbar  ">
+          <span
+            className="absolute -top-1 right-2 text-4xl cursor cursor-pointer ease-linear duration-300 text-gray-400 animate-bounce hover:animate-none hover:text-gray-600"
+            onClick={handleClose}
+          >
+            &times;
+          </span>
+          <header className="text-2xl font-bold">
+            Create Customer Account
+          </header>
           <div className="flex flex-col md:flex-row   gap-2 ">
             <div className="flex mt-5 flex-col gap-2 w-full">
               <label className="font-sm font-normal">First Name</label>
               <input
                 type="number"
                 placeholder="Enter First Name"
-                className="border-2 rounded p-2 pl-3"
+                className="border-2 rounded p-2 px-3"
               />
             </div>
             <div className="flex mt-5 flex-col gap-2 w-full">
@@ -29,7 +37,7 @@ function Signup() {
               <input
                 type="number"
                 placeholder="Enter Last Name"
-                className="border-2 rounded p-2 pl-3"
+                className="border-2 rounded p-2 px-3"
               />
             </div>
           </div>
@@ -38,13 +46,13 @@ function Signup() {
               <label className="font-sm font-normal">Date of Birth</label>
               <input
                 type="date"
-                className="border-2 rounded p-2 pl-3 text-gray-400"
+                className="border-2 rounded p-2 px-3 text-gray-400"
               />
             </div>
 
             <div className="flex mt-5 flex-col gap-2 w-full">
               <label className="font-sm font-normal">Gender</label>
-              <select className="border-2 rounded p-2 pl-3 text-gray-400">
+              <select className="border-2 rounded p-2 px-3 text-gray-400">
                 <option>Select Gender</option>
               </select>
             </div>
@@ -55,7 +63,7 @@ function Signup() {
             <input
               type="number"
               placeholder="Enter Phone Number"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
 
@@ -65,7 +73,7 @@ function Signup() {
               type="email"
               required
               placeholder="Enter Email"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
 
@@ -74,7 +82,7 @@ function Signup() {
             <input
               type="password"
               placeholder="Enter password"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
           <h2 className="font-normal font-sm text-gray-400 mt-5">
@@ -86,7 +94,7 @@ function Signup() {
             <input
               type="password"
               placeholder="Retype Password"
-              className="border-2 rounded p-2 pl-3"
+              className="border-2 rounded p-2 px-3"
             />
           </div>
           <div className="flex mt-5 gap-2">
@@ -101,9 +109,12 @@ function Signup() {
           </button>
           <h2>
             Already Have an Account{" "}
-            <Link className="text-gray-400 underline hover:text-blue-500">
+            <span
+              className="text-gray-400 underline hover:text-blue-500 cursor-pointer"
+              onClick={handleShowLogin}
+            >
               Login
-            </Link>
+            </span>
             .
           </h2>
         </div>
