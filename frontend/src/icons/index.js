@@ -25,3 +25,8 @@ export { default as AddBusinessIcon} from '@mui/icons-material/AddBusiness';
 export {default as QueuePlayNextIcon} from "@mui/icons-material/QueuePlayNext";
 export { default as SearchIcon } from "@mui/icons-material/Search";
 export {default as UserIcon} from "@mui/icons-material/PersonOutline";
+export {default as LocationOnIcon } from "@mui/icons-material/LocationOn";
+export { default as TwitterIcon } from "@mui/icons-material/Twitter";
+export { default as AddIcon } from "@mui/icons-material/Add";
+export { default as RemoveIcon } from "@mui/icons-material/Remove";
+export {default as ArrowForwardIcon}  from '@mui/icons-material/ArrowForward';

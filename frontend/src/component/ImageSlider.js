@@ -31,7 +31,7 @@ function ImageSlider() {
   }
 
   return (
-    <section className="w-screen h-[70vh]  relative overflow-hidden">
+    <section className="w-full h-[70vh]  relative overflow-hidden no-scrollbar">
       {SliderImages.map((slide, index) => (
         <div
           className={

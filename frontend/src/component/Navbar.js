@@ -28,7 +28,7 @@ function Navbar() {
   
   return (
     <div>
-      <div className="flex justify-between px-2 md:px-5 fixed w-screen z-50 py-2 md:py-5 bg-gray-200 shadow-md">
+      <div className="flex justify-between px-2 md:px-10 fixed w-screen z-50 py-2 md:py-5 bg-gray-100 shadow-md no-scrollbar">
         <Link className="hidden md:block">logo</Link>
         <div className="sm:block md:hidden ">
           <ClearAllIcon
@@ -85,7 +85,7 @@ function Navbar() {
             </span>
           </Link>
           <Link className="relative">
-            <span className="material-symbols-outlined md:text-3xl text-cyan-500">
+            <span className="material-symbols-outlined md:text-3xl text-cyan-500 hover:text-orange-400">
               shopping_cart
             </span>
             <span className="absolute -top-2 -right-2 text-orange-400 font-sans font-bold ">
@@ -117,11 +117,8 @@ function Navbar() {
         aria-describedby="modal-modal-description"
         className="flex justify-center items-center outline-none border-none "
       >
-      <div className="w-10/12 h-[88vh] p-2 bg-white rounded shadow-lg outline-none border-none">
-          <Signup
-            handleShowLogin={handleShowLogin}
-            handleClose={handleClose}
-          />
+        <div className="w-10/12 h-[88vh] p-2 bg-white rounded shadow-lg outline-none border-none">
+          <Signup handleShowLogin={handleShowLogin} handleClose={handleClose} />
         </div>
       </Modal>
     </div>
